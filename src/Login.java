@@ -8,7 +8,7 @@ public class Login {
         Student student1=new Student("zhang3","123456","张3","333333",false,0,120);
         Student student2=new Student("zhang4","123456","张4","444444",true,2,120);
         Student student3=new Student("zhang5","123456","张5","555555",true,1,120);
-        Student student4=new Student("zhang6","123456","张6","666666",false,0,120);
+        Student student4=new Student("zhang6","123456","张6","666666",true,1,120);
         Student student5=new Student("zhang7","123456","张7","777777",false,0,120);
 
         Administrator adm1=new Administrator("管理员01","456789");
@@ -205,6 +205,7 @@ public class Login {
                             System.out.println("操作完成");
                         }//启停活动
                         if(action==2){
+                            int countNum=0;
                             Iterator iterS=totalStudent.entrySet().iterator();
                             while(iterS.hasNext()){
                                 Map.Entry entryS=(Map.Entry)iterS.next();
@@ -213,6 +214,7 @@ public class Login {
                                     System.out.print(studentData.getTrueName()+" "+studentData.getUserId()+"是否让其通过(1为是，0为否):");
                                     int isPass=input.nextInt();
                                     if(isPass==1){
+                                        countNum++;
                                         studentData.setIsPassed(2);
                                         System.out.println("=====================================");
                                         System.out.println("已使其通过");
@@ -224,7 +226,28 @@ public class Login {
                                     }
                                 }
                             }
+                            if(countNum==0){
+                                System.out.println("=====================================");
+                                System.out.println("没有要审核的名单");
+                            }
                         }//审批
+                        if(action==3){
+                            int countPassed=0;
+                            Iterator iterS=totalStudent.entrySet().iterator();
+                            while (iterS.hasNext()){
+                                Map.Entry entryS=(Map.Entry)iterS.next();
+                                Student studentData=((Student)entryS.getValue());
+                                if(studentData.getIsPassed()==2){
+                                    System.out.println(studentData.getTrueName()+" "+
+                                            studentData.getUserId()+" 已参加");
+                                    countPassed++;
+                                }
+                            }
+                            System.out.println("参赛人数为:"+countPassed+"人");
+                        }//查看和统计报名情况
+                        if(action==4){
+
+                        }
                     }
                 }
                 else{
