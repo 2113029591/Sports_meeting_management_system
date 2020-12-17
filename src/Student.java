@@ -5,7 +5,7 @@ public class Student {
     private String userId;
     private boolean isJoin;
     private int isPassed;
-    //1为待审核，2为通过
+    //1为待审核，2为通过，3为未通过,0为默认值
     private int grade;
 
     public Student() {}
@@ -52,11 +52,11 @@ public class Student {
         this.userId = userId;
     }
 
-    public boolean isJoin() {
+    public boolean getIsJoin() {
         return isJoin;
     }
 
-    public void setJoin(boolean join) {
+    public void setIsJoin(boolean join) {
         isJoin = join;
     }
 
