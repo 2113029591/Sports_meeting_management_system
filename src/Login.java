@@ -4,6 +4,8 @@ import java.util.*;
 
 public class Login {
     int isReturn;
+    public final static Map<Integer,Student> studentHasGrade = new HashMap();
+    public final static Map<Integer,Student> studentRank = new HashMap();
     public static void main(String[] args) {
         Student student1=new Student("zhang3","123456","张3","333333",false,0,120);
         Student student2=new Student("zhang4","123456","张4","444444",true,2,120);
@@ -185,7 +187,7 @@ public class Login {
                         System.out.println("2为审批参赛申请");
                         System.out.println("3为查看和统计报名情况");
                         System.out.println("4为录入比赛成绩");
-                        System.out.println("5为查看运动员乘机和排名");
+                        System.out.println("5为查看运动员成绩和排名");
                         System.out.println("6为查看总排名");
                         System.out.println("7为退出账号");
                         System.out.print("请输入行为:");
@@ -246,8 +248,28 @@ public class Login {
                             System.out.println("参赛人数为:"+countPassed+"人");
                         }//查看和统计报名情况
                         if(action==4){
+                            Iterator iterS=totalStudent.entrySet().iterator();
+                            while (iterS.hasNext()){
+                                Map.Entry entryS=(Map.Entry)iterS.next();
+                                Student studentData=((Student)entryS.getValue());
+                                if(studentData.getIsPassed()==2){
+                                    System.out.print(studentData.getTrueName()+" "+
+                                            studentData.getUserId()+" "+"输入他的成绩(0-100之间)：");
+                                    studentData.setGrade(input.nextInt());
+                                    studentHasGrade.put(studentData.getGrade(),studentData);//录入有成绩的学生
+                                }
+                            }
+                        }//录入比赛成绩
+                        if(action==5){
+                            System.out.println("=====================================");
+                            Iterator iterRank=studentHasGrade.entrySet().iterator();
+                            while (iterRank.hasNext()){
+                                Map.Entry entryR=(Map.Entry)iterRank.next();
+                                Student studentData=((Student)entryR.getValue());
+                                System.out.println(studentData);
+                            }
 
-                        }
+                        }//查看运动员成绩和排名
                     }
                 }
                 else{
