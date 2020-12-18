@@ -4,8 +4,27 @@ import java.util.*;
 
 public class Login {
     int isReturn;
-    public final static Map<Integer,Student> studentHasGrade = new HashMap();
-    public final static Map<Integer,Student> studentRank = new HashMap();
+    public final static Map<Student,Integer> studentHasGrade = new HashMap();
+    public final static Map<Student,Integer> studentRank = new HashMap();
+
+    public static <K, V extends Comparable<? super V>> Map<K, V> sortDescend(Map<K, V> map) {
+        List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<K, V>>() {
+            @Override
+            public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2) {
+                int compare = (o1.getValue()).compareTo(o2.getValue());
+                return -compare;
+            }
+        });
+
+        Map<K, V> returnMap = new LinkedHashMap<K, V>();
+        for (Map.Entry<K, V> entry : list) {
+            returnMap.put(entry.getKey(), entry.getValue());
+        }
+        return returnMap;
+    }
+
+//    public final static List<Map.Entry<Student,Integer>> rankList= new ArrayList<>();
     public static void main(String[] args) {
         Student student1=new Student("zhang3","123456","张3","333333",false,0,120);
         Student student2=new Student("zhang4","123456","张4","444444",true,2,120);
@@ -138,11 +157,18 @@ public class Login {
                                 else{
                                     System.out.println("=====================================");
                                     System.out.println("这里还没有写");
+
                                 }
                             }//查看成绩和排名
                             if(action==3){
                                 System.out.println("=====================================");
                                 System.out.println("查看大赛总成绩（为写）");
+                                Iterator iterRank=sortDescend(studentHasGrade).entrySet().iterator();
+                                while (iterRank.hasNext()){
+                                    Map.Entry entryRank=(Map.Entry) iterRank.next();
+                                    Student studentDataR=((Student)entryRank.getKey());
+                                    System.out.println(studentDataR.getTrueName()+"  "+studentDataR.getGrade());
+                                }
                             }//大赛总排名
                             if(action==4){
                                 System.out.println("=====================================");
@@ -256,17 +282,24 @@ public class Login {
                                     System.out.print(studentData.getTrueName()+" "+
                                             studentData.getUserId()+" "+"输入他的成绩(0-100之间)：");
                                     studentData.setGrade(input.nextInt());
-                                    studentHasGrade.put(studentData.getGrade(),studentData);//录入有成绩的学生
+                                    studentHasGrade.put(studentData,studentData.getGrade());//录入有成绩的学生
                                 }
                             }
                         }//录入比赛成绩
                         if(action==5){
                             System.out.println("=====================================");
-                            Iterator iterRank=studentHasGrade.entrySet().iterator();
+                            Iterator iterS=studentHasGrade.entrySet().iterator();
+                            while (iterS.hasNext()){
+                                Map.Entry entryR=(Map.Entry)iterS.next();
+                                Student studentData=((Student)entryR.getKey());
+                                System.out.println(studentData.getTrueName()+
+                                        " "+studentData.getUserId()+"");
+                            }
+                            Iterator iterRank=sortDescend(studentHasGrade).entrySet().iterator();
                             while (iterRank.hasNext()){
-                                Map.Entry entryR=(Map.Entry)iterRank.next();
-                                Student studentData=((Student)entryR.getValue());
-                                System.out.println(studentData);
+                                Map.Entry entryRank=(Map.Entry) iterRank.next();
+                                Student studentData=((Student)entryRank.getKey());
+                                System.out.println(studentData.getTrueName()+"  "+studentData.getGrade());
                             }
 
                         }//查看运动员成绩和排名
