@@ -70,6 +70,9 @@ public class Login {
                 System.out.print("是否注册(1为是，0为否):");
 
                 if (input.nextInt() == 1) {
+                    System.out.println("=====================================");
+                    System.out.println("   注册界面");
+                    System.out.println();
                     System.out.print("输入注册的用户名：");
                     Student studentLogon = new Student();
                     studentLogon.setUserName(input.next());
@@ -108,6 +111,8 @@ public class Login {
                     while (true) {
                         int action;
                         System.out.println("=====================================");
+                        System.out.println("学生端操作界面");
+                        System.out.println();
                         System.out.println("0为参加报名");
                         System.out.println("1为查看报名情况");
                         System.out.println("2为查看成绩和排名");
@@ -241,7 +246,9 @@ public class Login {
                     System.out.println("登录成功！！");
                     while (true) {
                         System.out.println("=====================================");
-                        System.out.println("1未启停报名活动行为");
+                        System.out.println("管理员操作界面");
+                        System.out.println();
+                        System.out.println("1为启停报名活动行为");
                         System.out.println("2为审批参赛申请");
                         System.out.println("3为查看和统计报名情况");
                         System.out.println("4为录入比赛成绩");
@@ -400,9 +407,6 @@ public class Login {
                     System.out.println("账号或密码错误，请重新登录!!!");
                 }
             }
-
         }
-
-
     }
 }
